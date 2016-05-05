@@ -5,7 +5,7 @@
  * @version 1.0
  */
 public class LinkedList
-{
+{ 
     ListNode head; //Makes the head of the list a local variable to this class
     
     /**
@@ -19,10 +19,9 @@ public class LinkedList
     /**
      * Create a new node
      * 
-     * IMPROVEMENTS
-     * -Dont allow the user to add a student with an ID that already exists
+     * @param boolean - true if the node is succefully added
      */
-    public void createNode()
+    public boolean createNode()
     {
         System.out.print('\u000c');
         ListNode newNode = new ListNode(); //Creates an instance of ListNode to add to the list
@@ -33,18 +32,24 @@ public class LinkedList
         System.out.print("Please enter the mark of the student: ");
         newNode.setMark(Genio.getInteger());
         
+        ListNode current = head;
+        
         if(head==null) //If the list is empty then it sets the newNode as the start of the list
         {
             head = newNode;
         }
         else //Otherwise it goes through the list (using current) till it finds the end
         {
-            ListNode current = head;
+
             boolean added = false;
             
             while(added==false) //This loops while the current is not null
             {
-                if(current.getNext()==null) //The end of the list is found when the node after current is null
+                if(newNode.getID()==current.getID())
+                {
+                    added=true;
+                }
+                else if(current.getNext()==null) //The end of the list is found when the node after current is null
                 {
                     added=true;
                     current.setNext(newNode); //set the next of the current to
@@ -56,14 +61,20 @@ public class LinkedList
             }
         }
         
-        newNode.printInfo(); //Prints out the info of the new node
+        if(newNode.getID()==current.getID())
+        {
+            System.out.println("A node with this ID already exists");
+            return false;
+        }
+        else
+        {
+            newNode.printInfo(); //Prints out the info of the new node
+            return true;
+        }
     }
     
     /**
      * Search the linked list by ID and return the node
-     * 
-     * IMPROVEMENTS
-     * -Make it tell the user there are no items to search before it searches
      */
     public void searchByID()
     {
@@ -71,8 +82,7 @@ public class LinkedList
         boolean found = false;
         
         //Gets the user to enter the ID of the student and saves it
-        System.out.print("Please enter the ID of the student you would like to print :");
-        int ID = Genio.getInteger();
+
         
         ListNode current = head;
         if(head==null) //If the list is empty tell the user then dont continue
@@ -81,6 +91,8 @@ public class LinkedList
         }
         else //If the list is not empty dont continue
         {
+            System.out.print("Please enter the ID of the student you would like to print :");
+            int ID = Genio.getInteger();
             while(found==false) //Loop through the list starting at the head
             {
                 if(current.getID()==ID) //if current ID matches the one that is being searched for
@@ -122,18 +134,11 @@ public class LinkedList
     
     /**
      * Remove node by ID
-     * 
-     * IMPROVEMENTS
-     * - Tell the user the list is empty before they search
      */
     public void removeNode()
     {
         System.out.print('\u000c');
         boolean found = false;
-        
-        //Gets the ID of the student that is going to be removed and saves it
-        System.out.print("Please enter the ID of the student you would like to remove :");
-        int ID = Genio.getInteger();
         
         //Initalises variables to store the current and previous nodes in the loop
         ListNode current = head;
@@ -143,27 +148,33 @@ public class LinkedList
         {
             System.out.println("This could not be found because the list is empty");
         }
-        else if(head.getID()==ID) //If the head is being removed run this
-        {
-            head = head.getNext(); //Set the second item in the list as the first
-        }
         else
         {
-            while(found==false) //Loop through the nodes until the corrent node is found
+            System.out.print("Please enter the ID of the student you would like to remove :");
+            int ID = Genio.getInteger();
+        
+            if(head.getID()==ID) //If the head is being removed run this
             {
-                if(current.getID()==ID) //When the current node ID matches what is being searched for
+                head = head.getNext(); //Set the second item in the list as the first
+            }
+            else
+            {
+                while(found==false) //Loop through the nodes until the corrent node is found
                 {
-                    found = true; //Dont run loop again
-                    previous.setNext(current.getNext()); //Makes the list skip the node that is being removed
-                }
-                else if(current==null) //If the end of the loop is reached without having found the node
-                {
-                    found = true; //Exit the loop
-                }
-                else
-                {
-                    previous = current; //Update previous
-                    current = current.getNext(); //Increment through the list
+                    if(current.getID()==ID) //When the current node ID matches what is being searched for
+                    {
+                        found = true; //Dont run loop again
+                        previous.setNext(current.getNext()); //Makes the list skip the node that is being removed
+                    }
+                    else if(current==null) //If the end of the loop is reached without having found the node
+                    {
+                        found = true; //Exit the loop
+                    }
+                    else
+                    {
+                        previous = current; //Update previous
+                        current = current.getNext(); //Increment through the list
+                    }
                 }
             }
         }
