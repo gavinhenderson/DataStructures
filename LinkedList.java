@@ -59,20 +59,21 @@ public class LinkedList
                     current = current.getNext(); //Iterates through the list
                 }
             }
+            
+            if(newNode.getID()==current.getID())
+            {
+                System.out.println("A node with this ID already exists");
+                return false;
+            }
+            else
+            {
+                newNode.printInfo(); //Prints out the info of the new node
+                return true;
+            }
         }
-        
-        if(newNode.getID()==current.getID())
-        {
-            System.out.println("A node with this ID already exists");
-            return false;
-        }
-        else
-        {
-            newNode.printInfo(); //Prints out the info of the new node
-            return true;
-        }
+        return true;
     }
-    
+        
     /**
      * Search the linked list by ID and return the node
      */
@@ -91,7 +92,7 @@ public class LinkedList
         }
         else //If the list is not empty dont continue
         {
-            System.out.print("Please enter the ID of the student you would like to print :");
+            System.out.print("Please enter the ID of the student you would like to print: ");
             int ID = Genio.getInteger();
             while(found==false) //Loop through the list starting at the head
             {
@@ -150,7 +151,7 @@ public class LinkedList
         }
         else
         {
-            System.out.print("Please enter the ID of the student you would like to remove :");
+            System.out.print("Please enter the ID of the student you would like to remove: ");
             int ID = Genio.getInteger();
         
             if(head.getID()==ID) //If the head is being removed run this
