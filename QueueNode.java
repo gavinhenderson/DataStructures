@@ -44,7 +44,10 @@ public class QueueNode
         LocalTime now = LocalTime.now();
         long hours = ChronoUnit.HOURS.between(createdDate, now);
         long minutes = ChronoUnit.MINUTES.between(createdDate, now);
+        minutes = minutes%60;
         long seconds = ChronoUnit.SECONDS.between(createdDate, now);
+        seconds = seconds%60;
+        
         System.out.println(hours+":"+minutes+":"+seconds);
     }
     

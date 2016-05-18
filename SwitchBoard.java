@@ -21,6 +21,9 @@ public class SwitchBoard
     /**
      * Runs the switchboard
      */
+    public void runSwitchBoard()
+    {
+    }
     
     /**
      * Get the information from the operator and add it to the queue
@@ -30,8 +33,28 @@ public class SwitchBoard
         System.out.print("Enter the name of the caller: ");
         String name = Genio.getString();
         
-        System.out.print("Enter the number of the caller: ");
-        String number = Genio.getString();
+        boolean valid = false;
+        String number="";
+        while(!valid)
+        {
+            System.out.print("Enter the number of the caller: ");
+            number = Genio.getString();
+            if(number.length()==11)
+            {
+                if((number.charAt(0)=='0')&&(number.charAt(1)=='7'))
+                {
+                    valid=true;
+                }
+                else
+                {
+                    System.out.println("The first two numbers were not '07'");
+                }
+            }
+            else
+            {
+                System.out.println("You did not enter a phone number with the right amount of numbers");
+            }
+        }
         
         callerQueue.addToQueue(name,number);
     }
@@ -55,6 +78,7 @@ public class SwitchBoard
      */
     public void displayCallers()
     {
+        System.out.print('\u000c');
         if(!callerQueue.isEmpty())
         {
             Iterator<QueueNode> iterator = callerQueue.getIterator();
