@@ -19,6 +19,10 @@ public class SwitchBoard
     }
     
     /**
+     * Runs the switchboard
+     */
+    
+    /**
      * Get the information from the operator and add it to the queue
      */
     public void addCaller()
@@ -41,6 +45,8 @@ public class SwitchBoard
         System.out.println("********************");
         System.out.println("Name: "+forwarded.getName());
         System.out.println("Number: "+forwarded.getNumber());
+        System.out.print("Time waited: ");
+        forwarded.printTimeWaited();
         System.out.println("********************");
     }
     
@@ -60,6 +66,8 @@ public class SwitchBoard
                 System.out.println("********************");
                 System.out.println("Name: "+nextCaller.getName());
                 System.out.println("Number: "+nextCaller.getNumber());
+                System.out.print("Time waited: ");
+                nextCaller.printTimeWaited();
                 System.out.println("********************");
             }
         }

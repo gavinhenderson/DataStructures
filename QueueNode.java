@@ -1,14 +1,17 @@
+import java.time.*;
+import java.time.temporal.ChronoUnit;
 
 /**
- * Write a description of class QueueNode here.
+ * Stores all the information about a specific caller
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author Gavin Henderson 
+ * @version 1.0
  */
 public class QueueNode
 {
     String name;
     String number;
+    LocalTime createdDate;
     
     /**
      * Constructor for objects of class QueueNode
@@ -17,6 +20,7 @@ public class QueueNode
     {
         name = "";
         number = "";
+        createdDate = LocalTime.now();
     }
     
     /**
@@ -29,6 +33,19 @@ public class QueueNode
     {
         name = newName;
         number = newNumber;
+        createdDate = LocalTime.now();
+    }
+    
+    /**
+     * Prints the time that the caller has waited from the point it was created
+     */
+    public void printTimeWaited()
+    {
+        LocalTime now = LocalTime.now();
+        long hours = ChronoUnit.HOURS.between(createdDate, now);
+        long minutes = ChronoUnit.MINUTES.between(createdDate, now);
+        long seconds = ChronoUnit.SECONDS.between(createdDate, now);
+        System.out.println(hours+":"+minutes+":"+seconds);
     }
     
     /**
