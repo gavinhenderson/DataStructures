@@ -8,21 +8,61 @@ import java.util.Iterator;
  */
 public class SwitchBoard
 {
-    CallQueue callerQueue;
+    CallQueue queueOne;
+    CallQueue queueTwo;
+    CallQueue queueThree;
     
     /**
      * Constructor for objects of class SwitchBoard
      */
     public SwitchBoard()
     {
-        callerQueue = new CallQueue();
-    }
-    
-    /**
-     * Runs the switchboard
-     */
-    public void runSwitchBoard()
-    {
+        queueOne = new CallQueue();
+        queueTwo = new CallQueue();
+        queueThree = new CallQueue();
+        
+        boolean run = true;
+        while(run)
+        {
+            System.out.println("1: Add a caller");
+            System.out.println("2: Forward callers");
+            System.out.println("3: Display callers");
+            System.out.println("0: Exit");
+            
+            int choice = 0;
+            boolean valid = false;
+            while(!valid)
+            {
+                System.out.print("What would you like to do: ");
+                choice = Genio.getInteger();
+                
+                if((choice>=0)&&(choice<=3))
+                {
+                    valid = true;
+                }
+                else
+                {
+                    System.out.print('\u000c');
+                    System.out.println("You did not enter a valid choice");
+                }
+            }
+            
+            switch(choice)
+            {
+                case(1):
+                    addCaller();
+                    break;
+                case(2):
+                    forwardCaller();
+                    break;
+                case(3):
+                    displayCallers();
+                    break;
+                case(0):
+                    run = false;
+                    break;
+            }
+        }
     }
     
     /**
@@ -30,10 +70,31 @@ public class SwitchBoard
      */
     public void addCaller()
     {
+        System.out.print('\u000c');
+        System.out.println("1: Doctor 1");
+        System.out.println("2: Doctor 2");
+        System.out.println("3: Doctor 3");
+        System.out.print("Which doctor would you the caller like to contact: ");
+
+        int queueNo = 0;
+        boolean valid = false;
+        while(!valid)
+        {
+            queueNo = Genio.getInteger();
+            if((queueNo>0)&&(queueNo<=3))
+            {
+                valid = true;
+            }
+            else
+            {
+                System.out.println("You did not enter a valid number");
+            }
+        }        
+        
         System.out.print("Enter the name of the caller: ");
         String name = Genio.getString();
         
-        boolean valid = false;
+        valid = false;
         String number="";
         while(!valid)
         {
@@ -56,7 +117,20 @@ public class SwitchBoard
             }
         }
         
-        callerQueue.addToQueue(name,number);
+        switch(queueNo)
+        {
+            case(1): 
+                queueOne.addToQueue(name,number);
+                break;
+            case(2):
+                queueTwo.addToQueue(name,number);
+                break;
+            case(3):
+                queueThree.addToQueue(name,number);
+                break;
+        }
+        
+        System.out.print('\u000c');
     }
     
     /**
@@ -64,13 +138,53 @@ public class SwitchBoard
      */
     public void forwardCaller()
     {
-        QueueNode forwarded = callerQueue.removeFromQueue();
-        System.out.println("********************");
-        System.out.println("Name: "+forwarded.getName());
-        System.out.println("Number: "+forwarded.getNumber());
-        System.out.print("Time waited: ");
-        forwarded.printTimeWaited();
-        System.out.println("********************");
+        System.out.print('\u000c');
+        System.out.println("1: Doctor 1");
+        System.out.println("2: Doctor 2");
+        System.out.println("3: Doctor 3");
+        System.out.print("Which doctor would you like to forward a caller to: ");
+
+        int queueNo = 0;
+        boolean valid = false;
+        while(!valid)
+        {
+            queueNo = Genio.getInteger();
+            if((queueNo>0)&&(queueNo<=3))
+            {
+                valid = true;
+            }
+            else
+            {
+                System.out.println("You did not enter a valid number");
+            }
+        }     
+        
+        QueueNode forwarded = null;
+        
+        switch(queueNo)
+        {
+            case(1): 
+                forwarded = queueOne.removeFromQueue();
+                break;
+            case(2):
+                forwarded = queueTwo.removeFromQueue();
+                break;
+            case(3):
+                forwarded = queueThree.removeFromQueue();
+                break;
+        }
+        
+        System.out.print('\u000c');
+        
+        if(forwarded!=null)
+        {
+            System.out.println("********************");
+            System.out.println("Name: "+forwarded.getName());
+            System.out.println("Number: "+forwarded.getNumber());
+            System.out.print("Time waited: ");
+            forwarded.printTimeWaited();
+            System.out.println("********************");
+        }
     }
     
     /**
@@ -79,12 +193,48 @@ public class SwitchBoard
     public void displayCallers()
     {
         System.out.print('\u000c');
-        if(!callerQueue.isEmpty())
+        System.out.println("1: Doctor 1");
+        System.out.println("2: Doctor 2");
+        System.out.println("3: Doctor 3");
+        System.out.print("Which doctor would you like to view the callers of: ");
+
+        int queueNo = 0;
+        boolean valid = false;
+        while(!valid)
         {
-            Iterator<QueueNode> iterator = callerQueue.getIterator();
+            queueNo = Genio.getInteger();
+            if((queueNo>0)&&(queueNo<=3))
+            {
+                valid = true;
+            }
+            else
+            {
+                System.out.println("You did not enter a valid number");
+            }
+        } 
+        
+        CallQueue currentQueue = null;
+        
+        switch(queueNo)
+        {
+            case(1): 
+                currentQueue = queueOne;
+                break;
+            case(2):
+                currentQueue = queueTwo;
+                break;
+            case(3):
+                currentQueue = queueThree;
+                break;
+        }
+        
+        System.out.print('\u000c');
+        if(!currentQueue.isEmpty())
+        {
+            Iterator<QueueNode> iterator = currentQueue.getIterator();
             
             while(iterator.hasNext())
-            {
+            {   
                 QueueNode nextCaller = iterator.next();
                 
                 System.out.println("********************");
