@@ -1,3 +1,5 @@
+import java.lang.NumberFormatException;
+
 /**
  * Uses reverse polish notation calculation to accept an equation and produce an answer
  * 
@@ -34,15 +36,15 @@ public class RPNCalc
         //loop through the expressionList
         for (int i=0;i<expressionList.length;i++)
         {
-            if((expressionList[i].equals("1"))||(expressionList[i].equals("2"))||(expressionList[i].equals("3"))||(expressionList[i].equals("4"))||(expressionList[i].equals("5"))||(expressionList[i].equals("6"))||(expressionList[i].equals("7"))||(expressionList[i].equals("8"))||(expressionList[i].equals("9")))
+            try
             {
-                int currentNumber = Integer.parseInt(expressionList[i]);
+                double currentNumber = Double.parseDouble(expressionList[i]);
                 numberStack.push(currentNumber);
             }
-            else
+            catch(NumberFormatException e)
             {
-                int number1 = numberStack.pop();
-                int number2 = numberStack.pop();
+                double number1 = numberStack.pop();
+                double number2 = numberStack.pop();
                 
                 if(expressionList[i].equals("+"))
                 {
@@ -55,6 +57,10 @@ public class RPNCalc
                 else if(expressionList[i].equals("*"))
                 {
                     numberStack.push((number1*number2));
+                }
+                else if(expressionList[i].equals("/"))
+                {
+                    numberStack.push((number2/number1));
                 }
             }
         }

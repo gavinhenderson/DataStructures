@@ -21,7 +21,7 @@ public class Stack
      * 
      * @param int - the number that you want to add to the stack
      */
-    public void push(int number)
+    public void push(double number)
     {
         StackNode newNode = new StackNode(number);
         
@@ -41,9 +41,9 @@ public class Stack
      * 
      * @return int - the number from the top of the list
      */
-    public int pop()
+    public double pop()
     {
-        int popNumber = top.getNumber();
+        double popNumber = top.getNumber();
         top = top.getNext();
     
         return popNumber;

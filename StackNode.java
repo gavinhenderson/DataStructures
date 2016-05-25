@@ -7,7 +7,7 @@
 public class StackNode
 {
     StackNode next; //Stores the node that will be after this node in the list
-    int number; //Stores the number value
+    double number; //Stores the number value
     
     /**
      * Constructor for objects of class ListNode
@@ -21,7 +21,7 @@ public class StackNode
     /**
      * Alternative constructor for objects of class ListNode
      */
-    public StackNode(int newNumber)
+    public StackNode(double newNumber)
     {
         next = null;
         number = newNumber;
@@ -42,7 +42,7 @@ public class StackNode
      * 
      * @return int - the number stored in the instance
      */
-    public int getNumber()
+    public double getNumber()
     {
         return number;
     }
@@ -62,7 +62,7 @@ public class StackNode
      * 
      * @params int - the new number this node stores
      */
-    public void setNumber(int newNumber)
+    public void setNumber(double newNumber)
     {
         number = newNumber;
     }    
