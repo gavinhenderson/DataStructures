@@ -54,15 +54,15 @@ public class Stack
      * 
      * @return boolean - true if the stack is empty
      */
-    public boolean isStackEmpty()
+    public boolean isPopPossible()
     {
         if (top==null)
         {
-            return true;
+            return false;
         }
         else
         {
-            return false;
+            return true;
         }
     }
 }
